@@ -1,5 +1,5 @@
 ---
-title: Title
+title: Kubernetes
 author: Thibault Ayanides
 theme: white
 highlightTheme: stackoverflow-dark
@@ -13,7 +13,7 @@ revealOptions:
 
 <link href="css/style.css" rel="stylesheet">
 
-# Titre
+# Kubenetes
 
 ---
 
