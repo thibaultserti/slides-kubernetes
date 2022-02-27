@@ -175,7 +175,7 @@ kubectl get nodes
 
 - Dashboard
 ```bash
-TOKEN=$(kubectl -n kube-system describe secret default| awk '$1=="token:"{print $2}')
+TOKEN=$(kubectl -n kubernetes-dashboard describe secrets admin-user-token | awk '$1=="token:"{print $2}')
 kubectl config set-credentials kubernetes-admin --token="${TOKEN}"
 kubectl proxy
 # http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/workloads?namespace=default et se logger avec .kube/config
