@@ -21,9 +21,9 @@ revealOptions:
 
 ## Sommaire
 
-1. Contexte
-2. Architecture
-3. Workloads
+### 1. Contexte
+### 2. Architecture
+### 3. Workloads
 
 ---
 
@@ -180,3 +180,145 @@ kubectl config set-credentials kubernetes-admin --token="${TOKEN}"
 kubectl proxy
 # http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/workloads?namespace=default et se logger avec .kube/config
 ```
+
+---
+
+# Workloads
+
+---
+
+## Pods
+<div class="row">
+    <div class="column">
+        <ul>
+            <li>C’est la plus petite unité schedulable</li>
+            <li>Un pod est composé de 1 à N conteneurs</li>
+            <li>Conteneurs:</li>
+            <ul>
+                <li>Même namespace réseau (127.0.0.1)</li>
+                <li>Partage un espace de stockage commun</li>
+            </ul>
+            <li>Pod solitaire :</li>
+            <ul>
+                <li>Aucun contrôle up/running</li>
+                <li>Il faut créer un Workload</li>
+            </ul>
+        </ul>
+    </div>
+    <div class="column">
+        <img src="img/pod.png" width=80% />
+    </div>
+</div>
+
+
+---
+
+## Workloads
+
+- <b>Deployment</b>
+    - Probablement le workload le plus utilisé dans Kubernetes
+    - S’occupe du rolling update des pods lors d’un update (par un ReplicaSet)
+- <b>StatefulSet</b>
+    - Utilisé pour les applications avec état (cache, écriture disque, clustering, ...)
+    - Chaque pod a un identifiant persistant qu'il conserve lors de toute replanification
+- <b>DaemonSet</b>
+    - Place exactement 1 pod par node
+    - Utile pour les agents de logging par exemple
+- <b>Cronjob / Job</b>
+    - Action ponctuelle ou répétitive
+
+---
+
+## Requests Limits
+
+- Mécanismes utilisés pour contrôler les ressources processeur et la mémoire.
+- <b<Requests</b> :
+    - Garanti pour le conteneur
+    - Le conteneur sera planifié que sur un nœud qui peut lui donner cette ressource.
+- <b>Limits</b> :
+    - Le conteneur ne dépasse jamais une certaine valeur.
+    - OOMKilled
+
+---
+
+## Probes
+
+- Kubelet :
+    - `liveness` : pour détecter si le pod est vivant
+    - `readiness` : pour savoir si le pod est prêt à accepter le trafic
+- Gèle le rolling update si l’application : ne démarre pas ou n’est pas prête
+- Ne pas vérifier les éléments externes de l’application
+    - Memcached, DB, etc ..
+
+---
+
+## Configmap et secrets
+
+- <b>Configmap</b> : pour stocker et de gérer des informations
+- <b>Secrets</b> : pour stocker et gérer des informations sensibles (Base 64 !!!)
+- Utilisation :
+    - variables d’environnements
+    - volumes
+
+---
+
+## Storage
+
+- <b>StorageClass</b> : définit plusieurs offre de stockage
+    - des niveaux de qualité de service
+    - des politiques de sauvegarde
+- <b>PersistentVolume</b> :
+    - élément de stockage dans le cluster
+    - provisionné par un administrateur ou provisionné dynamiquement à l'aide de Storage Classes
+- <b>PersistentVolumeClaim</b> : est une demande de stockage par un utilisateur
+    - une taille
+    - des modes d'accès spécifiques
+
+---
+
+## Services
+
+<div class="row">
+    <div class="column">
+        <ul>
+            <li>Définit un ensemble logique de pods</li>
+            <li>Stratégie permettant d’y accéder</li>
+            <li>Types de Service</li>
+            <ul>
+                <li>None</li>
+                <li>ClusterIP</li>
+                <li>NodePort</li>
+                <li>LoadBalancer</li>
+            </ul>
+        </ul>
+    </div>
+    <div class="column">
+        <img src="img/service.png" width=80%/>
+    </div>
+</div>
+
+---
+
+## Ingress
+
+- Expose les routes HTTP et HTTPS de l'extérieur du cluster à
+des services au sein du cluster
+- Routage du trafic est contrôlé par des règles définies sur la
+ressource Ingress.
+- Ingress Controller : Nginx, Traefik, Contour, HAProxy Ingress
+
+---
+
+## Namespaces
+
+- Isolation logique des objets kubernetes
+    - Par défaut les namespaces :
+        - default
+        - kube-system
+            - kube-dns
+            - kube-proxy
+- On peut :
+    - Limiter les ressources allouées (CPU / Memory / Pods..)
+    - “Isoler” des groupes de pods / domaines métiers
+- Bonne pratique :
+    - Ne pas mettre les objets K8S dans le namespace default

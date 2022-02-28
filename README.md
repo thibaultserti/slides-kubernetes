@@ -33,6 +33,8 @@ Attention à bien spécifier le nom du fichier markdown dans `.github/workflows/
 
 ## Auteur
 
+Très largement inspiré du travail de Nicolas Lamirault
+
 Thibault Ayanides
 
 ## Licence
