@@ -18,7 +18,7 @@ jobs:
       - name: Build pdf
         run: |
           chmod 777 $(pwd)
-          docker run --rm -p 1948:1948  -v $(pwd):/slides webpronl/reveal-md:latest&
+          docker run --rm -p 1948:1948 -d -v $(pwd):/slides webpronl/reveal-md:latest
           docker run --rm -t --net=host -v $(pwd):/slides astefanutti/decktape http://localhost:1948/kubernetes.md kubernetes.pdf
       # CREATE RELEASE
       - name: Create Release
@@ -36,6 +36,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            main.pdf
+            kubernetes.pdf
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
