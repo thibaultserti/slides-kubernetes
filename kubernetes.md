@@ -65,7 +65,7 @@ L'orchestration c'est :
 ## Control Plane
 <!-- .slide: class="big-slide" -->
 
-<img src="img/architecture.svg"/>
+<img src="img/architecture.png"/>
 
 - Nodes master (abstraits dans les offres cloud publics managées)
 - Nodes worker
@@ -232,7 +232,7 @@ kubectl proxy
 ## Requests Limits
 
 - Mécanismes utilisés pour contrôler les ressources processeur et la mémoire.
-- <b<Requests</b> :
+- <b>Requests</b> :
     - Garanti pour le conteneur
     - Le conteneur sera planifié que sur un nœud qui peut lui donner cette ressource.
 - <b>Limits</b> :
