@@ -24,6 +24,7 @@ revealOptions:
 ### 1. Contexte
 ### 2. Architecture
 ### 3. Workloads
+### 4. Pratique
 
 ---
 
@@ -60,65 +61,11 @@ L'orchestration c'est :
 
 ---
 
-# Architecture
-
----
-
-## Control Plane
-<!-- .slide: class="big-slide" -->
-
-<img src="img/architecture.png"/>
-
-- Nodes master (abstraits dans les offres cloud publics managées)
-- Nodes worker
-
----
-
-## Composition du control plane
-<!-- .slide: class="big-slide" -->
-
-- <b>Etcd</b>
-    - Persistence des données du cluster : clé/valeur distribuée, protocole RAFT
-- <b>APIServer</b>
-    - Serveur qui permet la configuration d’objet Kubernetes (Pods, Service, Replication Controller, ...)
-    - Tous les communications du cluster passent par l’API Server
-    - Gère l’authentification, l’autorisation, la validation de la demande, le contrôle d’admission
-- <b>Controller Manager</b>
-    - Gère les différents contrôleurs du cluster (NodeController, ReplicationController, EndpointController, ...)
-- <b>Scheduler</b>
-    - S’occupe de trouver un noeud pour déployer un POD
-
----
-
-## Composition des nodes
-<!-- .slide: class="big-slide" -->
-
-- <b>Kubelet</b>
-    - Crée et gère les conteneurs. Contacté par l’API Server
-- <b>Kube-proxy</b>
-    - Gère les règles réseaux sur chaque noeud
-    - Forwarding TCP/UDP et Load balancing entre les services et les backends
-- <b>Container Runtime Interface (CRI)</b>
-    - Exécute les conteneurs : Containerd (default), Cri-o, gVisor, Kata, Docker (Deprecated)
-- <b>Container Network Interface (CNI)</b>
-    - Allocation des adresses IP des conteneurs
-    - Gestion de l’interface réseau qui va porter le conteneur
-    - Cilium (GKE v2), Calico, Flannel, Weave, ...
-- <b>Container Storage Interface (CSI)</b>
-    - Création, redimensionnement, attachement, montage des volumes
-    - Secrets
-
----
-
-## Architecture
-
-<img src="img/architecture2.png" width=50%/>
-
----
 
 # Installation d'un cluster Kubernetes de test
 
 ---
+
 ## Outillages
 
 - Kubectl
@@ -185,7 +132,7 @@ kubectl proxy
 
 ---
 
-## Utilisation d'un cluster de test sur Killercoda
+## Utilisation d'un cluster sur Killercoda
 
 - https://killercoda.com/playgrounds
 
@@ -205,6 +152,66 @@ $ gcloud auth login
 ```console
 $ gcloud components install kubectl
 ```
+
+---
+
+<iframe src="https://www.youtube.com/embed/3I9PkvZ80BQ" height=1080 width=1920 data-autoplay></iframe>
+
+---
+
+# Architecture
+
+---
+
+## Control Plane
+<!-- .slide: class="big-slide" -->
+
+<img src="img/architecture.png"/>
+
+- Nodes master (abstraits dans les offres cloud publics managées)
+- Nodes worker
+
+---
+
+## Composition du control plane
+<!-- .slide: class="big-slide" -->
+
+- <b>Etcd</b>
+    - Persistence des données du cluster : clé/valeur distribuée, protocole RAFT
+- <b>APIServer</b>
+    - Serveur qui permet la configuration d’objet Kubernetes (Pods, Service, Replication Controller, ...)
+    - Tous les communications du cluster passent par l’API Server
+    - Gère l’authentification, l’autorisation, la validation de la demande, le contrôle d’admission
+- <b>Controller Manager</b>
+    - Gère les différents contrôleurs du cluster (NodeController, ReplicationController, EndpointController, ...)
+- <b>Scheduler</b>
+    - S’occupe de trouver un noeud pour déployer un POD
+
+---
+
+## Composition des nodes
+<!-- .slide: class="big-slide" -->
+
+- <b>Kubelet</b>
+    - Crée et gère les conteneurs. Contacté par l’API Server
+- <b>Kube-proxy</b>
+    - Gère les règles réseaux sur chaque noeud
+    - Forwarding TCP/UDP et Load balancing entre les services et les backends
+- <b>Container Runtime Interface (CRI)</b>
+    - Exécute les conteneurs : Containerd (default), Cri-o, gVisor, Kata, Docker (Deprecated)
+- <b>Container Network Interface (CNI)</b>
+    - Allocation des adresses IP des conteneurs
+    - Gestion de l’interface réseau qui va porter le conteneur
+    - Cilium (GKE v2), Calico, Flannel, Weave, ...
+- <b>Container Storage Interface (CSI)</b>
+    - Création, redimensionnement, attachement, montage des volumes
+    - Secrets
+
+---
+
+## Architecture
+
+<img src="img/architecture2.png" width=50%/>
 
 ---
 
