@@ -48,6 +48,7 @@ L'orchestration c'est :
 - la mise en œuvre de conteneurs applicatifs sur des clusters de serveurs
 
 ---
+
 ## Ce que peut faire Kubernetes
 
 - Répartisseur de charge et découverte de services
@@ -58,6 +59,7 @@ L'orchestration c'est :
 - Gestion de configuration et de secrets applicatifs
 
 ---
+
 # Architecture
 
 ---
@@ -101,9 +103,9 @@ L'orchestration c'est :
 - <b>Container Network Interface (CNI)</b>
     - Allocation des adresses IP des conteneurs
     - Gestion de l’interface réseau qui va porter le conteneur
-    - Cilium (GKE v2), Flannel, Weave, ...
+    - Cilium (GKE v2), Calico, Flannel, Weave, ...
 - <b>Container Storage Interface (CSI)</b>
-    - Création, redimensionnement, attachement, montage [...] des volumes
+    - Création, redimensionnement, attachement, montage des volumes
     - Secrets
 
 ---
@@ -179,6 +181,29 @@ TOKEN=$(kubectl -n kubernetes-dashboard describe secrets admin-user-token | awk 
 kubectl config set-credentials kubernetes-admin --token="${TOKEN}"
 kubectl proxy
 # http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/workloads?namespace=default et se logger avec .kube/config
+```
+
+---
+
+## Utilisation d'un cluster de test sur Killercoda
+
+- https://killercoda.com/playgrounds
+
+---
+
+## Utilisation d'un cluster managé sur Google Cloud Platform
+
+- Installer gcloud : https://cloud.google.com/sdk/docs/install-sdk
+- Configuration :
+
+```console
+$ gcloud init
+$ gcloud auth login
+```
+- Installion kubectl
+
+```console
+$ gcloud components install kubectl
 ```
 
 ---
