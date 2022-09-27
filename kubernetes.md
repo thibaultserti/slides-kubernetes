@@ -157,6 +157,8 @@ $ gcloud components install kubectl
 
 <iframe src="https://www.youtube.com/embed/3I9PkvZ80BQ" height=1080 width=1920 data-autoplay></iframe>
 
+https://www.youtube.com/embed/3I9PkvZ80BQ
+
 ---
 
 # Architecture
